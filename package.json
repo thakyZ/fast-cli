@@ -1,9 +1,10 @@
 {
 	"name": "fast-cli",
-	"version": "2.4.0",
+	"version": "3.1.0",
 	"description": "Test your download and upload speed using fast.com",
 	"license": "MIT",
 	"repository": "sindresorhus/fast-cli",
+	"funding": "https://github.com/sponsors/sindresorhus",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
@@ -13,14 +14,15 @@
 		"fast": "cli.js"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=12.20"
 	},
 	"scripts": {
 		"test": "xo && ava"
 	},
 	"files": [
 		"cli.js",
-		"api.js"
+		"api.js",
+		"ui.js"
 	],
 	"keywords": [
 		"cli-app",
@@ -43,18 +45,30 @@
 		"mbps"
 	],
 	"dependencies": {
-		"chalk": "^2.4.2",
-		"deep-equal": "^1.0.1",
-		"delay": "^4.1.0",
-		"log-update": "^2.3.0",
-		"meow": "^6.1.1",
-		"ora": "^3.1.0",
-		"puppeteer": "^1.12.1",
-		"zen-observable": "^0.8.13"
+		"delay": "^5.0.0",
+		"import-jsx": "^4.0.0",
+		"ink": "^3.2.0",
+		"ink-spinner": "^4.0.3",
+		"meow": "^9.0.0",
+		"puppeteer": "^13.0.0",
+		"react": "^17.0.2",
+		"zen-observable": "^0.8.15"
 	},
 	"devDependencies": {
-		"ava": "^3.15.0",
-		"execa": "^1.0.0",
-		"xo": "^0.37.1"
+		"ava": "^2.4.0",
+		"eslint-config-xo-react": "^0.25.0",
+		"eslint-plugin-react": "^7.23.2",
+		"eslint-plugin-react-hooks": "^4.2.0",
+		"execa": "^5.0.0",
+		"p-event": "^4.2.0",
+		"xo": "^0.39.1"
+	},
+	"xo": {
+		"extends": [
+			"xo-react"
+		],
+		"rules": {
+			"react/prop-types": "off"
+		}
 	}
 }
