@@ -6,11 +6,13 @@
 
 ## Install
 
-Ensure you have [Node.js](https://nodejs.org) version 8+ installed. Then run the following:
+Ensure you have [Node.js](https://nodejs.org) version 12.20+ installed. Then run the following:
 
+```sh
+npm install --global fast-cli
 ```
-$ npm install --global fast-cli
-```
+
+*This project uses Puppeteer under the hood. Most [install issues](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md) are related to that.*
 
 ## Usage
 
@@ -24,20 +26,40 @@ $ fast --help
   Options
     --upload, -u   Measure upload speed in addition to download speed
     --single-line  Reduce spacing and output to a single line
+    --json         JSON output
 
   Examples
     $ fast --upload > file && cat file
     17 Mbps
     4.4 Mbps
+
+    $ fast --upload --json
 ```
 
 ##### Upload speed
 
 <img src="screenshot-upload.gif" width="500" height="260">
 
-## Links
+##### JSON output
 
-- [Product Hunt submission](https://www.producthunt.com/posts/fast-cli-2)
+The speeds are in Mbps.
+
+```sh
+fast --upload --json
+```
+
+```json
+{
+	"downloadSpeed": 52,
+	"uploadSpeed": 64,
+	"downloaded": 270,
+	"uploaded": 290,
+	"latency": 9,
+	"bufferBloat": 46,
+	"userLocation": "Somewhere, NO",
+	"userIp": "49.222.206.21"
+}
+```
 
 ## Related
 

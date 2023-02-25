@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 'use strict';
-const dns = require('dns');
 const meow = require('meow');
-const chalk = require('chalk');
-const logUpdate = require('log-update');
-const ora = require('ora');
-const api = require('./api');
+const importJsx = require('import-jsx');
+const React = require('react');
+const {render} = require('ink');
+
+// Note to self: This cannot be ESM until https://github.com/vadimdemedes/import-jsx/issues/15 is fixed.
+
+const ui = importJsx('./ui');
 
 const cli = meow(`
 	Usage
@@ -15,15 +17,23 @@ const cli = meow(`
 	Options
 	  --upload, -u   Measure upload speed in addition to download speed
 	  --single-line  Reduce spacing and output to a single line
+<<<<<<< HEAD
 	  --json         Process output in json format also forces single line 
+=======
+	  --json         JSON output
+>>>>>>> b8f3061b0585cf1ad123f2e0cf13090063d21cd8
 
 	Examples
 	  $ fast --upload > file && cat file
 	  17 Mbps
 	  4.4 Mbps
 
+<<<<<<< HEAD
 	  $ fast --upload --json-pretty 
 
+=======
+	  $ fast --upload --json
+>>>>>>> b8f3061b0585cf1ad123f2e0cf13090063d21cd8
 `, {
 	flags: {
 		upload: {
@@ -39,6 +49,7 @@ const cli = meow(`
 	}
 });
 
+<<<<<<< HEAD
 // Check connections
 dns.lookup('fast.com', error => {
 	if (error && error.code === 'ENOTFOUND') {
@@ -68,12 +79,19 @@ const uploadSpeed = () =>
 const uploadColor = string => (data.isDone ? chalk.green(string) : chalk.cyan(string));
 
 const downloadColor = string => ((data.isDone || data.uploadSpeed) ? chalk.green(string) : chalk.cyan(string));
+=======
+const main = async () => {
+	const app = render(React.createElement(ui, {
+		singleLine: cli.flags.singleLine,
+		upload: cli.flags.upload,
+		json: cli.flags.json
+	}));
+>>>>>>> b8f3061b0585cf1ad123f2e0cf13090063d21cd8
 
-const speedText = () =>
-	cli.flags.upload ?
-		`${downloadColor(downloadSpeed())} ${chalk.dim('/')} ${uploadColor(uploadSpeed())}` :
-		downloadColor(downloadSpeed());
+	await app.waitUntilExit();
+};
 
+<<<<<<< HEAD
 const speed = () => speedText() + lineBreak(2);
 
 function exit() {
@@ -121,3 +139,6 @@ if (process.stdout.isTTY) {
 		process.exit(1);
 	}
 })();
+=======
+main();
+>>>>>>> b8f3061b0585cf1ad123f2e0cf13090063d21cd8

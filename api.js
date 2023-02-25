@@ -1,12 +1,12 @@
 'use strict';
 /* eslint-env browser */
+const {isDeepStrictEqual} = require('util');
 const puppeteer = require('puppeteer');
 const Observable = require('zen-observable');
-const equals = require('deep-equal'); // TODO: Use `util.isDeepStrictEqual` when targeting Node.js 10
 const delay = require('delay');
 
 async function init(browser, page, observer, options) {
-	let prevResult;
+	let previousResult;
 
 	/* eslint-disable no-constant-condition, no-await-in-loop */
 	while (true) {
@@ -16,10 +16,16 @@ async function init(browser, page, observer, options) {
 			return {
 				downloadSpeed: Number($('#speed-value').textContent),
 				downloadUnit: $('#speed-units').textContent.trim(),
+<<<<<<< HEAD
 				downloadedMb: Number($('#down-mb-value').textContent.trim()),
 				uploadSpeed: Number($('#upload-value').textContent),
 				uploadUnit: $('#upload-units').textContent.trim(),
 				uploadedMb: Number($('#up-mb-value').textContent.trim()),
+=======
+				downloaded: Number($('#down-mb-value').textContent.trim()),
+				uploadUnit: $('#upload-units').textContent.trim(),
+				uploaded: Number($('#up-mb-value').textContent.trim()),
+>>>>>>> b8f3061b0585cf1ad123f2e0cf13090063d21cd8
 				latency: Number($('#latency-value').textContent.trim()),
 				bufferBloat: Number($('#bufferbloat-value').textContent.trim()),
 				userLocation: $('#user-location').textContent.trim(),
@@ -30,7 +36,7 @@ async function init(browser, page, observer, options) {
 			};
 		});
 
-		if (result.downloadSpeed > 0 && !equals(result, prevResult)) {
+		if (result.downloadSpeed > 0 && !isDeepStrictEqual(result, previousResult)) {
 			observer.next(result);
 		}
 
@@ -40,7 +46,7 @@ async function init(browser, page, observer, options) {
 			return;
 		}
 
-		prevResult = result;
+		previousResult = result;
 
 		await delay(100);
 	}
@@ -55,6 +61,6 @@ module.exports = options => (
 			const page = await browser.newPage();
 			await page.goto('https://fast.com');
 			await init(browser, page, observer, options);
-		})().catch(observer.error.bind(observer));
+		})().catch(observer.error.bind(observer)); // eslint-disable-line promise/prefer-await-to-then
 	})
 );
